@@ -1,19 +1,14 @@
 import express, { json } from 'express';
 import { errorHandler } from './src/middleware/errorHandler.js';
+import { connectDB } from './src/db/mongoconnect.js';
 import routes from './src/routes/user.js';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODBURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }).then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+await connectDB();
 
 // Middleware to parse JSON
 app.use(json());
