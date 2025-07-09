@@ -27,4 +27,32 @@ async function createUser(userData) {
     return { message: 'User created successfully' };
 }
 
-export { createUser };
+async function getUser(username) {
+    const userExists = await User.findOne({ username });
+    console.log('userExists ' + userExists)
+
+    if (userExists) return { data: userExists };
+
+    throw new BadRequestError('User not found');
+}
+
+async function updateUser(dataToUpdate) {
+    const { _id } = dataToUpdate;
+    if (!_id) {
+      throw new BadRequestError('User id not found');
+    }
+  
+    const updatedUser = await User.findByIdAndUpdate(_id, dataToUpdate, {
+      new: true,
+      runValidators: true,
+    });
+  
+    if (!updatedUser) {
+      throw new NotFoundError('User not found');
+    }
+  
+    return { message: 'User updated successfully' };
+  }
+  
+
+export { createUser, getUser, updateUser };

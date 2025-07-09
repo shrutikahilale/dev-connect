@@ -14,7 +14,7 @@ await connectDB();
 app.use(json());
 
 // use routes
-app.use('/', routes);
+app.use('/user', routes);
 
 // Start the server
 app.listen(PORT, () => {
