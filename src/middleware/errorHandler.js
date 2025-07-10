@@ -16,8 +16,8 @@ function errorHandler(err, req, res, next) {
         return res.status(err.statusCode).json({ error: err.message });
     }
 
-    console.error(err); // Log unexpected errors
-    return res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Unexpected error:', err); // Improved logging
+    return res.status(500).json({ error: 'Internal Server Error' }); // Removed hardcoded message
 }
 
 export { errorHandler };

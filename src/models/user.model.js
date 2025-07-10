@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { schemaOptionsPlugin } from '../utils/schemaplugin.js';
 
 const userSchema = new Schema({
     username: {
@@ -54,5 +55,7 @@ const userSchema = new Schema({
 }, {
     timestamps: true
 });
+
+userSchema.plugin(schemaOptionsPlugin);
 
 export const User = model('User', userSchema);
