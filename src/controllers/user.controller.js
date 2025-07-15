@@ -28,7 +28,7 @@ const updateUserController = async (req, res, next) => {
 
 const getUserController = async (req, res, next) => {
     try {
-        const result = await getUser(req.query.username);
+        const result = await getUser(req.id);
         res.status(200).json({
             data: result.data,
             is_success: true

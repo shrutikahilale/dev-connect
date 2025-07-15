@@ -23,8 +23,8 @@ async function createUser(phonenumber, firstname, lastname) {
   return { message: 'User created successfully' };
 }
 
-async function getUser(username) {
-  const userExists = await User.findOne({ username });
+async function getUser(id) {
+  const userExists = await User.findById(id);
   if (userExists) return { data: userExists };
   throw new BadRequestError('User not found');
 }

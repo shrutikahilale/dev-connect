@@ -5,6 +5,12 @@ class CustomError extends Error {
     }
 }
 
+class Unauthorized extends CustomError {
+    constructor(message = 'Unauthorized user') {
+        super(message, 401);
+    }
+}
+
 class BadRequestError extends CustomError {
     constructor(message = 'Bad Request') {
         super(message, 400);
@@ -17,4 +23,4 @@ class ConflictError extends CustomError {
     }
 }
 
-export { CustomError, BadRequestError, ConflictError };
+export { CustomError, BadRequestError, ConflictError, Unauthorized };

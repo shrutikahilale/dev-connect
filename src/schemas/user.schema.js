@@ -1,11 +1,5 @@
 import Joi from "joi";
 
-const getUserSchema = Joi.object({
-    query: Joi.object({
-        username: Joi.string().required()
-    })
-})
-
 const createUserSchema = Joi.object({
     body: Joi.object({
         firstname: Joi.string().required(),
@@ -28,4 +22,4 @@ const updateUserSchema = Joi.object({
     })
 })
 
-export { getUserSchema, createUserSchema, updateUserSchema };
+export { createUserSchema, updateUserSchema };

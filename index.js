@@ -16,12 +16,7 @@ app.use(json());
 // use routes
 app.use('/user', routes);
 
-// // Not found handler
-// app.use('*', (req, res) =>
-//     res.status(404).json({ error: { message: 'Not found' }, is_success: false })
-// );
-
-// app.use(errorHandler); // Apply the error handler
+app.use(errorHandler); // Apply the error handler
 
 // Start the server
 app.listen(PORT, () => {
