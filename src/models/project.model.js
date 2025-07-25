@@ -16,7 +16,7 @@ const projectSchema = new Schema(
             ref: 'User',
             required: true,
         },
-        referenceLinks: {
+        refLinks: {
             type: [String],
             validate: {
                 validator: function (links) {
@@ -33,4 +33,4 @@ const projectSchema = new Schema(
     { timestamps: true }
 );
 
-export default model('Project', projectSchema);
+export const Project = model('Project', projectSchema);

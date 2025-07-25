@@ -1,7 +1,8 @@
 import express, { json } from 'express';
 import { errorHandler } from './src/middleware/errorHandler.js';
 import { connectDB } from './src/db/mongoconnect.js';
-import routes from './src/routes/user.route.js';
+import userRoutes from './src/routes/user.route.js';
+import projectRoutes from './src/routes/project.route.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -13,8 +14,9 @@ await connectDB();
 // Middleware to parse JSON
 app.use(json());
 
-// use routes
-app.use('/user', routes);
+// routes
+app.use('/user', userRoutes);
+app.use('/project', projectRoutes);
 
 app.use(errorHandler); // Apply the error handler
 

@@ -23,4 +23,10 @@ class ConflictError extends CustomError {
     }
 }
 
-export { CustomError, BadRequestError, ConflictError, Unauthorized };
+class SomethingWentWrong extends CustomError {
+    constructor(message = 'Bad Request') {
+        super(message, 500);
+    }
+}
+
+export { CustomError, BadRequestError, ConflictError, Unauthorized, SomethingWentWrong };
