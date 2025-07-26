@@ -44,5 +44,94 @@ async function getProject(userId, projectId) {
     return data;
 }
 
+async function updateProject(projectId, data) {
+    const project = await Project.findById(projectId);
+    if (!project) throw new BadRequestError('Project not found');
 
-export { createProject, getProject };
+    try {
+
+        const { title, description, refLinks, tags } = data;
+
+        // if (title) {
+        //     await Project.findByIdAndUpdate(projectId, title);
+        // }
+
+        // if (description) {
+        //     await Project.findByIdAndUpdate(projectId, description);
+        // }
+
+        // if (refLinks) {
+        //     const action = refLinks.action;
+        //     let dataToUpdate = refLinks.values;
+
+        //     switch (action) {
+        //         case 'append':
+        //             await Project.findByIdAndUpdate(projectId, { $push: { refLinks: dataToUpdate } })
+        //             break;
+
+        //         case 'replace':
+        //             await Project.findByIdAndUpdate(projectId, { $set: { refLinks: dataToUpdate } })
+        //             break;
+
+        //         default:
+        //             throw new BadRequestError(`Invalid action`);
+        //     }
+        // }
+
+
+        // if (tags) {
+        //     const action = tags.action;
+        //     let dataToUpdate = tags.values;
+
+        //     switch (action) {
+        //         case 'append':
+        //             await Project.findByIdAndUpdate(projectId, { $push: { tags: dataToUpdate } })
+        //             break;
+
+        //         case 'replace':
+        //             await Project.findByIdAndUpdate(projectId, { $set: { tags: dataToUpdate } })
+        //             break;
+
+        //         default:
+        //             throw new BadRequestError(`Invalid action`);
+        //     }
+        // }
+
+        let updatePayload = {};
+
+        if (title) updatePayload.title = title;
+        if (description) updatePayload.description = description;
+        if (refLinks) {
+            const { action, values } = refLinks;
+
+            if (action === 'append') {
+                updatePayload.$push = updatePayload.$push || {};
+                updatePayload.$push.refLinks = { $each: values };
+            }
+            else if (action === 'replace') {
+                updatePayload.refLinks = values;
+            }
+        }
+        if (tags) {
+            const { action, values } = tags;
+
+            if (action === 'append') {
+                updatePayload.$push = updatePayload.$push || {};
+                updatePayload.$push.tags = { $each: values };
+            }
+            else if (action === 'replace') {
+                updatePayload.tags = values;
+            }
+        }
+
+        await Project.findByIdAndUpdate(projectId, updatePayload, { new: true })
+
+        return { message: 'Project updated successfully' };
+    }
+    catch (err) {
+        throw new SomethingWentWrong(`Error: ${err.message}`);
+    }
+}
+
+
+export { createProject, getProject, updateProject };

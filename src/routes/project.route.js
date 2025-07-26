@@ -1,8 +1,8 @@
 import express from 'express';
 import { authenticate } from '../middleware/auth.middleware.js';
-import { createProjectSchema, getProjectSchema } from '../schemas/project.schema.js';
+import { createProjectSchema, getProjectSchema, updateProjectSchema } from '../schemas/project.schema.js';
 import { validateRequest } from '../middleware/validateInput.js';
-import { createProjectController, getProjectController } from '../controllers/project.controller.js';
+import { createProjectController, getProjectController, updateProjectController} from '../controllers/project.controller.js';
 
 const router = express.Router();
 
@@ -13,7 +13,7 @@ router.get('/get', validateRequest(getProjectSchema), authenticate, getProjectCo
 
 router.get('/get/:id', validateRequest(getProjectSchema), authenticate, getProjectController);
 
-// router.patch('/update', authenticate, updateProjectController);
+router.patch('/update', validateRequest(updateProjectSchema), authenticate, updateProjectController);
 
 // router.delete('/delete', authenticate, deleteProjectController);
 
