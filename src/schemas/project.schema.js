@@ -12,4 +12,10 @@ const createProjectSchema = Joi.object({
     })
 });
 
-export { createProjectSchema };
+const getProjectSchema = Joi.object({
+    params: Joi.object({
+        id: Joi.string().guid().optional()
+    })
+});
+
+export { createProjectSchema, getProjectSchema };

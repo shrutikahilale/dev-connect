@@ -7,7 +7,7 @@ import { updateUserSchema, createUserSchema } from '../schemas/user.schema.js';
 const router = express.Router();
 
 // User routes
-router.post('/register', authenticate, validateRequest(createUserSchema), createUserController);
+router.post('/register', validateRequest(createUserSchema), createUserController);
 
 router.put('/update', authenticate, validateRequest(updateUserSchema), updateUserController);
 

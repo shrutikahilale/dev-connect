@@ -46,7 +46,9 @@ const validateRequest = (schema) => {
     return (req, res, next) => {
       const validationTarget = {
         body: req.body,
-        headers: req.headers
+        headers: req.headers,
+        params: req.params,
+        query: req.query
       };
   
       const { error } = schema.validate(validationTarget, { allowUnknown: true });

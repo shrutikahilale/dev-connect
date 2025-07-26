@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { schemaOptionsPlugin } from '../utils/schemaplugin.js';
 
 const projectSchema = new Schema(
     {
@@ -32,5 +33,7 @@ const projectSchema = new Schema(
     },
     { timestamps: true }
 );
+
+projectSchema.plugin(schemaOptionsPlugin);
 
 export const Project = model('Project', projectSchema);

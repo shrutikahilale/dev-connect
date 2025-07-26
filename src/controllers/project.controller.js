@@ -1,4 +1,4 @@
-import { createProject } from '../services/project.service.js';
+import { createProject, getProject } from '../services/project.service.js';
 
 const createProjectController = async (req, res, next) => {
     try {
@@ -17,4 +17,30 @@ const createProjectController = async (req, res, next) => {
     }
 }
 
-export { createProjectController };
+const getProjectController = async (req, res, next) => {
+    try {
+        let result;
+
+        if (req.params.id) {
+            let projectId = req.params.id;
+            let userId = req.id;
+
+            result = await getProject(userId, projectId);
+        }
+        else {
+
+            let userId = req.id;
+            result = await getProject(userId);
+        }
+
+        res.status(200).json({
+            data: result,
+            is_success: true
+        });
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+export { createProjectController , getProjectController};
