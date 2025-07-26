@@ -4,7 +4,15 @@ const createProjectSchema = Joi.object({
     body: Joi.object({
         title: Joi.string().required(),
         description: Joi.string().allow('').optional(),
-        referenceLinks: Joi.array().items(Joi.string()).optional(),
+        refLinks: Joi.array()
+            .items(
+                Joi.string()
+                    .pattern(/^https?:\/\/.+\..+/)
+                    .message('Each reference link must be a valid URL')
+            )
+            .messages({
+                'array.base': 'refLinks must be an array of URLs.',
+            }),
         tags: Joi.array().items(Joi.string()).optional()
     }),
     headers: Joi.object({

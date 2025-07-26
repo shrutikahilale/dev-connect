@@ -17,7 +17,6 @@ async function createProject(userId, projectData) {
     try {
         const project = await Project.create(data);
 
-        // data = { projects: [project._id] }
         await User.findByIdAndUpdate(userId, {
             $push: { projects: project._id }
         });
